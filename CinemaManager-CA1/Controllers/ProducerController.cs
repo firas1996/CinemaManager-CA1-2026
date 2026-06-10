@@ -21,7 +21,7 @@ namespace CinemaManager_CA1.Controllers
         // GET: ProducersController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            return View(_context.Producers.Find(id));
         }
 
         // GET: ProducersController/Create
@@ -33,10 +33,12 @@ namespace CinemaManager_CA1.Controllers
         // POST: ProducersController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Producer p)
         {
             try
             {
+                _context.Producers.Add(p);
+                _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -48,16 +50,18 @@ namespace CinemaManager_CA1.Controllers
         // GET: ProducersController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            return View(_context.Producers.Find(id));
         }
 
         // POST: ProducersController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(Producer p)
         {
             try
             {
+                _context.Producers.Update(p);
+                _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -69,16 +73,18 @@ namespace CinemaManager_CA1.Controllers
         // GET: ProducersController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            return View(_context.Producers.Find(id));
         }
 
         // POST: ProducersController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(Producer p)
         {
             try
             {
+                _context.Producers.Remove(p);
+                _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             catch
