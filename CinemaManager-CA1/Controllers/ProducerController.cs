@@ -17,6 +17,11 @@ namespace CinemaManager_CA1.Controllers
             //ViewBag.producers = _context.Producers.ToList() ;
             return View(_context.Producers.ToList());
         }
+        public ActionResult ProdsAndTheirMovies()
+        {
+            var movies = _context.Movies.ToList() ;
+            return View(_context.Producers.ToList());
+        }
 
         // GET: ProducersController/Details/5
         public ActionResult Details(int id)
