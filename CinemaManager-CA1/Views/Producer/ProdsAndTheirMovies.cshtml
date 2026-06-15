@@ -38,7 +38,16 @@
                     @Html.DisplayFor(model => item.Nationality)
                 </td>
                 <td>
-                    @Html.DisplayFor(model => item.Email)
+                    @foreach(var movie in item.Movies)
+                    {
+                        @Html.DisplayFor(model => movie.Title)
+                    }
+                </td>
+                <td>
+                    @foreach (var movie in item.Movies)
+                    {
+                        @Html.DisplayFor(model => movie.Genre)
+                    }
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
