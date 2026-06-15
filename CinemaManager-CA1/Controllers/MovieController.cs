@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CinemaManager_CA1.Models.Cinema;
+using CinemaManager_CA1.Models.ViewModels;
 
 public class MovieController : Controller
 {
@@ -21,6 +22,24 @@ public class MovieController : Controller
     {
         return View(await _context.Movies.Include(m=>m.Producer).ToListAsync());
     }
+
+    public async Task<IActionResult> MoviesAndTheirProds_UsingModel()
+    {
+        var producers = await _context.Producers.ToListAsync();
+        var movies = await _context.Movies.ToListAsync();
+        var querry = from m in movies
+                     join p in producers on m.ProducerId equals p.Id
+                     select new ProdMovie
+                     {
+                         mTitle = m.Title,
+                         mGenre = m.Genre,
+                         pname = p.Name,
+                         pNat = p.Nationality
+                     };
+        return View(querry.ToList());
+    }
+
+
 
     // GET: MOVIES/Details/5
     public async Task<IActionResult> Details(int? id)
