@@ -18,6 +18,15 @@ public class MovieController : Controller
     {
         return View(await _context.Movies.ToListAsync());
     }
+    public async Task<IActionResult> SearchByTitle(string title)
+    {
+        var movies = _context.Movies;
+        if (String.IsNullOrEmpty(title))
+        {
+        return View(await movies.ToListAsync());
+        }
+        return View(await movies.Where(m=>m.Title.Contains(title)).ToListAsync());
+    }
     public async Task<IActionResult> MoviesAndTheirProds()
     {
         return View(await _context.Movies.Include(m=>m.Producer).ToListAsync());
